@@ -1,6 +1,8 @@
 package com.github.brunosgs.controllers;
 
 import com.github.brunosgs.exception.UnsupportedMathOperationException;
+import com.github.brunosgs.utils.Converter;
+import com.github.brunosgs.utils.Validation;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,41 +14,45 @@ public class MathController {
     @RequestMapping("/sum/{numberOne}/{numberTwo}")
     public Double sum(@PathVariable String numberOne,
                       @PathVariable String numberTwo) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo)) {
+        if (Validation.isNumeric(numberOne) || Validation.isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        return convertToDouble(numberOne) + convertToDouble(numberTwo);
+        return Converter.convertToDouble(numberOne) + Converter.convertToDouble(numberTwo);
     }
 
     @RequestMapping("/sub/{numberOne}/{numberTwo}")
     public Double sub(@PathVariable String numberOne,
                       @PathVariable String numberTwo) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo)) {
+        if (Validation.isNumeric(numberOne) || Validation.isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        return convertToDouble(numberOne) - convertToDouble(numberTwo);
+        return Converter.convertToDouble(numberOne) - Converter.convertToDouble(numberTwo);
     }
 
     @RequestMapping("/mult/{numberOne}/{numberTwo}")
     public Double mult(@PathVariable String numberOne,
                        @PathVariable String numberTwo) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo)) {
+        if (Validation.isNumeric(numberOne) || Validation.isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        return convertToDouble(numberOne) * convertToDouble(numberTwo);
+        return Converter.convertToDouble(numberOne) * Converter.convertToDouble(numberTwo);
     }
 
     @RequestMapping("/div/{numberOne}/{numberTwo}")
     public Double div(@PathVariable String numberOne,
                       @PathVariable String numberTwo) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo)) {
+        if (Validation.isNumeric(numberOne) || Validation.isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        Double division = convertToDouble(numberOne) / convertToDouble(numberTwo);
+        if (numberTwo.equals("0")) {
+            throw new UnsupportedMathOperationException("Division by zero!");
+        }
+
+        Double division = Converter.convertToDouble(numberOne) / Converter.convertToDouble(numberTwo);
 
         if (division.isNaN()) {
             throw new UnsupportedMathOperationException("Undefined result, not a number (NaN).");
@@ -58,11 +64,11 @@ public class MathController {
     @RequestMapping("/average/{numberOne}/{numberTwo}")
     public Double average(@PathVariable String numberOne,
                           @PathVariable String numberTwo) {
-        if (isNumeric(numberOne) || isNumeric(numberTwo)) {
+        if (Validation.isNumeric(numberOne) || Validation.isNumeric(numberTwo)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        Double average = (convertToDouble(numberOne) + convertToDouble(numberTwo)) / 2;
+        Double average = (Converter.convertToDouble(numberOne) + Converter.convertToDouble(numberTwo)) / 2;
 
         if (average.isNaN()) {
             throw new UnsupportedMathOperationException("Undefined result, not a number (NaN).");
@@ -73,11 +79,11 @@ public class MathController {
 
     @RequestMapping("/square/{number}")
     public Double square(@PathVariable String number) {
-        if (isNumeric(number)) {
+        if (Validation.isNumeric(number)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
 
-        Double resultSquareRoot = Math.sqrt(convertToDouble(number));
+        Double resultSquareRoot = Math.sqrt(Converter.convertToDouble(number));
 
         if (resultSquareRoot.isNaN()) {
             throw new UnsupportedMathOperationException("Undefined result, not a number (NaN).");
@@ -86,23 +92,4 @@ public class MathController {
         return resultSquareRoot;
     }
 
-    private Double convertToDouble(String strNumber) {
-        if (strNumber == null || strNumber.isEmpty()) {
-            throw new UnsupportedMathOperationException("Please set a numeric value!");
-        }
-
-        String number = strNumber.replace(",", ".");
-
-        return Double.parseDouble(number);
-    }
-
-    private boolean isNumeric(String strNumber) {
-        if (strNumber == null || strNumber.isEmpty()) {
-            return true;
-        }
-
-        String number = strNumber.replace(",", ".");
-
-        return !number.matches("[-+]?[0-9]*\\.?[0-9]+");
-    }
 }
