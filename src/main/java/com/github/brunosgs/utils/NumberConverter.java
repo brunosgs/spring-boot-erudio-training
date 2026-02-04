@@ -2,7 +2,7 @@ package com.github.brunosgs.utils;
 
 import com.github.brunosgs.exception.UnsupportedMathOperationException;
 
-public class Converter {
+public class NumberConverter {
 
     public static Double convertToDouble(String strNumber) {
         if (strNumber == null || strNumber.isEmpty()) {

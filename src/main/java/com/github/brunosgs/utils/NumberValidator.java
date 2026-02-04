@@ -1,6 +1,6 @@
 package com.github.brunosgs.utils;
 
-public class Validation {
+public class NumberValidator {
     public static boolean isNumeric(String strNumber) {
         if (strNumber == null || strNumber.isEmpty()) {
             return true;
