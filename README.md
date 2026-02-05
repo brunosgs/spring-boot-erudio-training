@@ -50,8 +50,7 @@ O projeto evolui gradativamente implementando as seguintes features:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/brunosgs/spring-boot-erudio-training.git](https://github.com/brunosgs/spring-boot-erudio-training.git)
-    cd spring-boot-erudio-training
+    git clone https://github.com/brunosgs/spring-boot-erudio-training.git
     ```
 
 2.  **Configuração do Banco de Dados:**
