@@ -1,4 +1,4 @@
-# RESTful API com Spring Boot 3, Java e Docker 🍃🐳
+# Spring Boot 2026 REST API's do 0 à AWS e GCP c Java e Docker 🍃🐳
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
