@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: spring-boot-erudio-training
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/<nome_schema_banco>?useTimezone=true&serverTimezone=UTC
+    username: <usuario>
+    password: <senha>
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: false

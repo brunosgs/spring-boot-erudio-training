@@ -1,7 +1,7 @@
 package com.github.brunosgs.controllers;
 
 import com.github.brunosgs.model.Person;
-import com.github.brunosgs.sevice.PersonService;
+import com.github.brunosgs.sevices.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,7 @@ public class PersonController {
     @RequestMapping(value = "{id}",
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable String id) {
+    public Person findById(@PathVariable Long id) {
         return personService.findById(id);
     }
 
@@ -48,7 +48,7 @@ public class PersonController {
 
     @RequestMapping(value = "{id}",
                     method = RequestMethod.DELETE)
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable Long id) {
         personService.delete(id);
     }
 }
