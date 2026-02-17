@@ -1,6 +1,6 @@
 package com.github.brunosgs.controllers;
 
-import com.github.brunosgs.model.Person;
+import com.github.brunosgs.data.dto.PersonDTO;
 import com.github.brunosgs.sevices.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,24 +25,24 @@ public class PersonController {
 
     @GetMapping(value = "{id}",
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable Long id) {
+    public PersonDTO findById(@PathVariable Long id) {
         return personService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> findAll() {
+    public List<PersonDTO> findAll() {
         return personService.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person create(@RequestBody Person person) {
+    public PersonDTO create(@RequestBody PersonDTO person) {
         return personService.create(person);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person update(@RequestBody Person person) {
+    public PersonDTO update(@RequestBody PersonDTO person) {
         return personService.update(person);
     }
 

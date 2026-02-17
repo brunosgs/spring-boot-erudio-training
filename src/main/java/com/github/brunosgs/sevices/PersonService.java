@@ -1,5 +1,6 @@
 package com.github.brunosgs.sevices;
 
+import com.github.brunosgs.data.dto.PersonDTO;
 import com.github.brunosgs.exception.ResourceNotFoundException;
 import com.github.brunosgs.model.Person;
 import com.github.brunosgs.repository.PersonRepository;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.github.brunosgs.mapper.ObjectMapper.parseListObjects;
+import static com.github.brunosgs.mapper.ObjectMapper.parseObject;
+
 @Service
 public class PersonService {
     private final Logger logger = LoggerFactory.getLogger(PersonService.class.getName());
@@ -17,42 +21,49 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public List<Person> findAll() {
+    public List<PersonDTO> findAll() {
         logger.info("Finding all Person!");
 
-        return personRepository.findAll();
+        return parseListObjects(personRepository.findAll(), PersonDTO.class);
     }
 
-    public Person findById(Long id) {
+    public PersonDTO findById(Long id) {
         logger.info("Finding one Person!");
 
-        return personRepository.findById(id)
-                               .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        Person person = personRepository.findById(id)
+                                        .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
+        return parseObject(person, PersonDTO.class);
     }
 
-    public Person create(Person person) {
+    public PersonDTO create(PersonDTO personDTO) {
         logger.info("Creating one Person!");
 
-        return personRepository.save(person);
+        Person person = parseObject(personDTO, Person.class);
+
+        return parseObject(personRepository.save(person), PersonDTO.class);
     }
 
-    public Person update(Person person) {
+    public PersonDTO update(PersonDTO personDTO) {
         logger.info("Updating one Person!");
 
-        Person findPerson = findById(person.getId());
+        PersonDTO findPersonDTO = findById(personDTO.getId());
 
-        findPerson.setFirstName(person.getFirstName());
-        findPerson.setLastName(person.getLastName());
-        findPerson.setAddress(person.getAddress());
-        findPerson.setGender(person.getGender());
+        findPersonDTO.setFirstName(personDTO.getFirstName());
+        findPersonDTO.setLastName(personDTO.getLastName());
+        findPersonDTO.setAddress(personDTO.getAddress());
+        findPersonDTO.setGender(personDTO.getGender());
 
-        return personRepository.save(person);
+        Person person = parseObject(findPersonDTO, Person.class);
+
+        return parseObject(personRepository.save(person), PersonDTO.class);
     }
 
     public void delete(Long id) {
         logger.info("Deleting one Person!");
 
-        Person person = findById(id);
+        PersonDTO personDTO = findById(id);
+        Person person = parseObject(personDTO, Person.class);
 
         personRepository.delete(person);
     }
