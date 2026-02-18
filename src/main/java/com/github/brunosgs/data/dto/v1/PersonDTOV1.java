@@ -1,9 +1,9 @@
-package com.github.brunosgs.data.dto;
+package com.github.brunosgs.data.dto.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonDTO implements Serializable {
+public class PersonDTOV1 implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -12,7 +12,7 @@ public class PersonDTO implements Serializable {
     private String address;
     private String gender;
 
-    public PersonDTO() {
+    public PersonDTOV1() {
     }
 
     public Long getId() {
@@ -57,9 +57,10 @@ public class PersonDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof PersonDTO person))
+        if (o == null || getClass() != o.getClass())
             return false;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender());
+        PersonDTOV1 that = (PersonDTOV1) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getGender(), that.getGender());
     }
 
     @Override

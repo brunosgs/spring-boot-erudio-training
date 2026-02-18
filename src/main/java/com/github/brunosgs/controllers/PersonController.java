@@ -1,6 +1,7 @@
 package com.github.brunosgs.controllers;
 
-import com.github.brunosgs.data.dto.PersonDTO;
+import com.github.brunosgs.data.dto.v1.PersonDTOV1;
+import com.github.brunosgs.data.dto.v2.PersonDTOV2;
 import com.github.brunosgs.sevices.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,24 +26,31 @@ public class PersonController {
 
     @GetMapping(value = "{id}",
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO findById(@PathVariable Long id) {
+    public PersonDTOV1 findById(@PathVariable Long id) {
         return personService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PersonDTO> findAll() {
+    public List<PersonDTOV1> findAll() {
         return personService.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO create(@RequestBody PersonDTO person) {
+    public PersonDTOV1 create(@RequestBody PersonDTOV1 person) {
+        return personService.create(person);
+    }
+
+    @PostMapping(value = "v2",
+                 consumes = MediaType.APPLICATION_JSON_VALUE,
+                 produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTOV2 create(@RequestBody PersonDTOV2 person) {
         return personService.create(person);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO update(@RequestBody PersonDTO person) {
+    public PersonDTOV1 update(@RequestBody PersonDTOV1 person) {
         return personService.update(person);
     }
 

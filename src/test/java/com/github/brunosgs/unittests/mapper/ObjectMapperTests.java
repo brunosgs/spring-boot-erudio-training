@@ -1,6 +1,6 @@
 package com.github.brunosgs.unittests.mapper;
 
-import com.github.brunosgs.data.dto.PersonDTO;
+import com.github.brunosgs.data.dto.v1.PersonDTOV1;
 import com.github.brunosgs.model.Person;
 import com.github.brunosgs.unittests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,7 @@ public class ObjectMapperTests {
 
     @Test
     public void parseEntityToDTOTest() {
-        PersonDTO output = parseObject(inputObject.mockEntity(), PersonDTO.class);
+        PersonDTOV1 output = parseObject(inputObject.mockEntity(), PersonDTOV1.class);
 
         assertEquals(Long.valueOf(0L), output.getId());
         assertEquals("First Name Test0", output.getFirstName());
@@ -33,8 +33,8 @@ public class ObjectMapperTests {
 
     @Test
     public void parseEntityListToDTOListTest() {
-        List<PersonDTO> outputList = parseListObjects(inputObject.mockEntityList(), PersonDTO.class);
-        PersonDTO outputZero = outputList.getFirst();
+        List<PersonDTOV1> outputList = parseListObjects(inputObject.mockEntityList(), PersonDTOV1.class);
+        PersonDTOV1 outputZero = outputList.getFirst();
 
         assertEquals(Long.valueOf(0L), outputZero.getId());
         assertEquals("First Name Test0", outputZero.getFirstName());
@@ -42,7 +42,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test0", outputZero.getAddress());
         assertEquals("Male", outputZero.getGender());
 
-        PersonDTO outputSeven = outputList.get(7);
+        PersonDTOV1 outputSeven = outputList.get(7);
 
         assertEquals(Long.valueOf(7L), outputSeven.getId());
         assertEquals("First Name Test7", outputSeven.getFirstName());
@@ -50,7 +50,7 @@ public class ObjectMapperTests {
         assertEquals("Address Test7", outputSeven.getAddress());
         assertEquals("Female", outputSeven.getGender());
 
-        PersonDTO outputTwelve = outputList.get(12);
+        PersonDTOV1 outputTwelve = outputList.get(12);
 
         assertEquals(Long.valueOf(12L), outputTwelve.getId());
         assertEquals("First Name Test12", outputTwelve.getFirstName());
