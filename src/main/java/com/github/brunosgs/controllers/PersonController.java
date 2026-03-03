@@ -18,24 +18,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("person")
+@RequestMapping("/api/person")
 public class PersonController {
 
     @Autowired
     private PersonService personService;
 
-    @GetMapping(value = "{id}",
+    @GetMapping(value = "/v1/{id}",
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTOV1 findById(@PathVariable Long id) {
         return personService.findById(id);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "v1",
+                produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PersonDTOV1> findAll() {
         return personService.findAll();
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = "v1",
+                 consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTOV1 create(@RequestBody PersonDTOV1 person) {
         return personService.create(person);
@@ -48,13 +50,14 @@ public class PersonController {
         return personService.create(person);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(value = "v1",
+                consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTOV1 update(@RequestBody PersonDTOV1 person) {
         return personService.update(person);
     }
 
-    @DeleteMapping(value = "{id}")
+    @DeleteMapping(value = "v1/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         personService.delete(id);
 
