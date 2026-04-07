@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,11 @@ public class PersonController {
     @GetMapping(value = "/v1/{id}",
                 produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTOV1 findById(@PathVariable Long id) {
-        return personService.findById(id);
+        PersonDTOV1 personById = personService.findById(id);
+
+        personById.setBirthDay(LocalDate.now());
+
+        return personById;
     }
 
     @GetMapping(value = "v1",

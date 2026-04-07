@@ -1,13 +1,13 @@
 package com.github.brunosgs.data.dto.v1;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "address", "firstName", "lastName", "gender"})
+@JsonPropertyOrder({ "id", "address", "firstName", "lastName", "gender" })
 public class PersonDTOV1 implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -18,9 +18,11 @@ public class PersonDTOV1 implements Serializable {
 
     @JsonProperty("last_name")
     private String lastName;
-    private String address;
 
-    @JsonIgnore
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate birthDay;
+
+    private String address;
     private String gender;
 
     public PersonDTOV1() {
@@ -66,16 +68,27 @@ public class PersonDTOV1 implements Serializable {
         this.gender = gender;
     }
 
+    public LocalDate getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass())
             return false;
         PersonDTOV1 that = (PersonDTOV1) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getGender(), that.getGender());
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName())
+                && Objects.equals(getLastName(), that.getLastName())
+                && Objects.equals(getBirthDay(), that.getBirthDay()) && Objects.equals(getAddress(), that.getAddress())
+                && Objects.equals(getGender(), that.getGender());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getBirthDay(), getAddress(), getGender());
     }
 }
