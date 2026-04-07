@@ -30,6 +30,9 @@ replay_pid*
 target
 src/main/resources/application.yaml
 
+# VS Code
+**/.vscode
+
 #node
 /node_modules
 
